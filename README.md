@@ -1,6 +1,6 @@
 # Voucher Management API
 
-Voucher Management API là ứng dụng backend viết bằng Spring Boot để quản lý voucher khuyến mãi, người dùng và lịch sử sử dụng voucher. Project được xây dựng theo yêu cầu bài test Intern Developer, tập trung vào thiết kế REST API, migration database, validate dữ liệu, xử lý nghiệp vụ ở service layer và tổ chức mã nguồn rõ ràng.
+Voucher Management API là ứng dụng backend viết bằng Spring Boot để quản lý voucher khuyến mãi, người dùng và lịch sử sử dụng voucher, tập trung vào thiết kế REST API, migration database, validate dữ liệu, xử lý nghiệp vụ ở service layer và tổ chức mã nguồn rõ ràng.
 
 ## Tính năng
 
@@ -43,6 +43,7 @@ src
 |   |   `-- VoucherManagementApplication.java
 |   `-- resources
 |       |-- application.properties
+|       |-- Voucher Management API.postman_collection.json  # Collection postman
 |       `-- db/migration    # Flyway SQL migrations
 `-- test
     `-- java/com/vt1/vouchermanagement
