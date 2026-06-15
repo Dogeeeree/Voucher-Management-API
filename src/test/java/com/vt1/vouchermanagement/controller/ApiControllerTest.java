@@ -21,7 +21,6 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -90,6 +89,15 @@ class ApiControllerTest {
                                 """.formatted(LocalDate.now().plusDays(1))))
                 .andExpect(status().isUnprocessableEntity())
                 .andExpect(jsonPath("$.success").value(false));
+    }
+
+    @Test
+    void createVoucherMissingBodyReturnsValidationErrorEnvelope() throws Exception {
+        mockMvc.perform(post("/vouchers")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(jsonPath("$.success").value(false))
+                .andExpect(jsonPath("$.message").value("Request body is required or invalid"));
     }
 
     @Test

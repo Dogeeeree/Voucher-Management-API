@@ -244,6 +244,156 @@ Content-Type: application/json
 GET /voucher-usages?page=0&size=10
 ```
 
+## Kiểm thử bằng Postman
+
+Trước khi test bằng Postman, chạy ứng dụng:
+
+```powershell
+mvn spring-boot:run
+```
+
+### 1. Lấy danh sách voucher
+
+```http
+GET http://localhost:8080/vouchers?page=0&size=10
+```
+Ảnh Demo:
+img/1.png
+
+### 2. Tạo voucher mới
+
+```http
+POST http://localhost:8080/vouchers
+Content-Type: application/json
+```
+
+```json
+{
+  "code": "SALE20",
+  "discountPercent": 20,
+  "quantity": 50,
+  "expiredDate": "2026-12-31",
+  "status": "ACTIVE"
+}
+```
+
+Ảnh Demo:
+img/2.png
+
+### 3. Validate voucher trùng code
+
+Gửi lại request tạo voucher `SALE20`.
+
+Ảnh Demo:
+img/3.png
+
+### 4. Validate discount không hợp lệ
+
+```http
+POST http://localhost:8080/vouchers
+Content-Type: application/json
+```
+
+```json
+{
+  "code": "SALE_INVALID",
+  "discountPercent": 0,
+  "quantity": 10,
+  "expiredDate": "2026-12-31",
+  "status": "ACTIVE"
+}
+```
+
+Ảnh Demo:
+img/4.png
+
+### 5. Tìm kiếm voucher theo code
+
+```http
+GET http://localhost:8080/vouchers/search?code=SALE&page=0&size=10
+```
+Ảnh Demo:
+img/5.png
+
+### 6. Cập nhật voucher
+
+```http
+PUT http://localhost:8080/vouchers/1
+Content-Type: application/json
+```
+
+```json
+{
+  "code": "SALE10",
+  "discountPercent": 15,
+  "quantity": 99,
+  "expiredDate": "2026-12-31",
+  "status": "ACTIVE"
+}
+```
+
+Ảnh Demo:
+img/6.png
+
+### 7. Lấy danh sách user
+
+```http
+GET http://localhost:8080/users?page=0&size=10
+```
+Ảnh Demo:
+img/7.png
+
+### 8. Tạo user mới
+
+```http
+POST http://localhost:8080/users
+Content-Type: application/json
+```
+
+```json
+{
+  "fullName": "Le Van C",
+  "email": "c@gmail.com",
+  "phone": "0909123456"
+}
+```
+
+Ảnh Demo:
+img/8.png
+
+### 9. Validate email trùng
+
+Gửi lại request tạo user với email `c@gmail.com`.
+
+Ảnh Demo:
+img/9.png
+
+### 10. User sử dụng voucher
+
+```http
+POST http://localhost:8080/voucher-usages
+Content-Type: application/json
+```
+
+```json
+{
+  "userId": 1,
+  "voucherId": 1
+}
+```
+
+Ảnh Demo:
+img/10.png
+
+### 11. Xem lịch sử sử dụng voucher
+
+```http
+GET http://localhost:8080/voucher-usages?page=0&size=10
+```
+
+Ảnh Demo:
+img/11.png
+
 ## Quy tắc nghiệp vụ
 
 ### Voucher
@@ -300,4 +450,3 @@ Voucher mẫu có ngày hết hạn sau 90 ngày tính từ thời điểm chạ
 - DTO định nghĩa dữ liệu đầu vào, đầu ra và validate request.
 - Service chịu trách nhiệm xử lý nghiệp vụ và transaction.
 - Repository chỉ tập trung vào truy vấn dữ liệu.
-- Flyway là nguồn quản lý thay đổi schema database.
