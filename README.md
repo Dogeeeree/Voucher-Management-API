@@ -1,24 +1,24 @@
 # Voucher Management API
 
-Voucher Management API is a backend-only Spring Boot application for managing promotion vouchers, customer records, and voucher usage history. It was built for an intern developer assessment with emphasis on REST API design, database migrations, validation, service-layer business logic, and clean project structure.
+Voucher Management API là ứng dụng backend viết bằng Spring Boot để quản lý voucher khuyến mãi, người dùng và lịch sử sử dụng voucher. Project được xây dựng theo yêu cầu bài test Intern Developer, tập trung vào thiết kế REST API, migration database, validate dữ liệu, xử lý nghiệp vụ ở service layer và tổ chức mã nguồn rõ ràng.
 
-## Features
+## Tính năng
 
-- Manage vouchers with full CRUD operations.
-- Search vouchers by code.
-- Manage users with email validation and duplicate protection.
-- Record voucher usage history.
-- Decrease voucher quantity atomically when a voucher is used.
-- Reject voucher usage when the voucher is expired, inactive, or out of stock.
-- Return consistent JSON envelopes for both success and error responses.
-- Run database schema changes through Flyway migrations.
-- Cover core business rules with unit tests and controller tests.
+- Quản lý voucher với đầy đủ thao tác CRUD.
+- Tìm kiếm voucher theo mã code.
+- Quản lý user với validate email và kiểm tra trùng email.
+- Ghi nhận lịch sử sử dụng voucher.
+- Tự động giảm số lượng voucher khi user sử dụng thành công.
+- Từ chối sử dụng voucher khi voucher hết hạn, inactive hoặc hết số lượng.
+- Trả response JSON thống nhất cho cả thành công và lỗi.
+- Quản lý schema database bằng Flyway migration.
+- Có unit test và controller test cho các nghiệp vụ chính.
 
-## Tech Stack
+## Công nghệ sử dụng
 
-| Area | Technology |
+| Hạng mục | Công nghệ |
 | --- | --- |
-| Language | Java 17 |
+| Ngôn ngữ | Java 17 |
 | Framework | Spring Boot 3.3.5 |
 | API | Spring Web |
 | Persistence | Spring Data JPA, Hibernate |
@@ -26,18 +26,18 @@ Voucher Management API is a backend-only Spring Boot application for managing pr
 | Migration | Flyway |
 | Validation | Jakarta Bean Validation |
 | Testing | JUnit 5, Mockito, MockMvc |
-| Build Tool | Maven |
+| Build tool | Maven |
 
-## Project Structure
+## Cấu trúc project
 
 ```text
 src
 |-- main
 |   |-- java/com/vt1/vouchermanagement
 |   |   |-- controller      # REST endpoints
-|   |   |-- dto             # Request and response objects
+|   |   |-- dto             # Request và response object
 |   |   |-- entity          # JPA entities
-|   |   |-- exception       # API exceptions and global handler
+|   |   |-- exception       # Exception và global handler
 |   |   |-- repository      # Spring Data repositories
 |   |   |-- service         # Business logic
 |   |   `-- VoucherManagementApplication.java
@@ -50,22 +50,22 @@ src
         `-- service
 ```
 
-## Prerequisites
+## Yêu cầu môi trường
 
-- Java 17 or newer
-- Maven 3.6.3 or newer
-- MySQL 8 or newer
+- Java 17 trở lên
+- Maven 3.6.3 trở lên
+- MySQL 8 trở lên
 
-Verify your local tools:
+Kiểm tra môi trường:
 
 ```powershell
 java -version
 mvn -version
 ```
 
-## Database Setup
+## Cấu hình database
 
-Create the database:
+Tạo database MySQL:
 
 ```sql
 CREATE DATABASE voucher_management
@@ -73,7 +73,7 @@ CREATE DATABASE voucher_management
   COLLATE utf8mb4_unicode_ci;
 ```
 
-The application uses these default local settings:
+Cấu hình mặc định trong project:
 
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/voucher_management?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
@@ -81,7 +81,7 @@ spring.datasource.username=root
 spring.datasource.password=
 ```
 
-Override them with environment variables when needed:
+Nếu máy bạn dùng username hoặc password khác, có thể override bằng biến môi trường:
 
 ```powershell
 $env:DB_URL="jdbc:mysql://localhost:3306/voucher_management?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
@@ -89,14 +89,12 @@ $env:DB_USERNAME="root"
 $env:DB_PASSWORD="your_password"
 ```
 
-Flyway runs automatically on startup:
+Flyway sẽ tự chạy migration khi ứng dụng khởi động:
 
-- `V1__create_voucher_management_tables.sql` creates `users`, `vouchers`, and `voucher_usages`.
-- `V2__insert_sample_data.sql` inserts sample users and active vouchers.
+- `V1__create_voucher_management_tables.sql`: tạo bảng `users`, `vouchers`, `voucher_usages`.
+- `V2__insert_sample_data.sql`: thêm user và voucher mẫu.
 
-## Running the Application
-
-Start the API:
+## Chạy ứng dụng
 
 ```powershell
 mvn spring-boot:run
@@ -108,22 +106,22 @@ Base URL:
 http://localhost:8080
 ```
 
-## Running Tests
+## Chạy test
 
 ```powershell
 mvn test
 ```
 
-Current verification result:
+Kết quả kiểm thử gần nhất:
 
 ```text
 Tests run: 20, Failures: 0, Errors: 0, Skipped: 0
 BUILD SUCCESS
 ```
 
-## API Response Format
+## Định dạng response
 
-Success response:
+Response thành công:
 
 ```json
 {
@@ -136,7 +134,7 @@ Success response:
 }
 ```
 
-Error response:
+Response lỗi:
 
 ```json
 {
@@ -147,21 +145,21 @@ Error response:
 
 ## API Reference
 
-### Vouchers
+### Voucher APIs
 
-#### List vouchers
+#### Lấy danh sách voucher
 
 ```http
 GET /vouchers?page=0&size=10
 ```
 
-#### Search vouchers by code
+#### Tìm kiếm voucher theo code
 
 ```http
 GET /vouchers/search?code=SALE&page=0&size=10
 ```
 
-#### Create voucher
+#### Tạo voucher
 
 ```http
 POST /vouchers
@@ -178,7 +176,7 @@ Content-Type: application/json
 }
 ```
 
-#### Update voucher
+#### Cập nhật voucher
 
 ```http
 PUT /vouchers/1
@@ -195,21 +193,21 @@ Content-Type: application/json
 }
 ```
 
-#### Delete voucher
+#### Xóa voucher
 
 ```http
 DELETE /vouchers/1
 ```
 
-### Users
+### User APIs
 
-#### List users
+#### Lấy danh sách user
 
 ```http
 GET /users?page=0&size=10
 ```
 
-#### Create user
+#### Tạo user
 
 ```http
 POST /users
@@ -224,9 +222,9 @@ Content-Type: application/json
 }
 ```
 
-### Voucher Usages
+### Voucher Usage APIs
 
-#### Use voucher
+#### Sử dụng voucher
 
 ```http
 POST /voucher-usages
@@ -240,64 +238,66 @@ Content-Type: application/json
 }
 ```
 
-#### List usage history
+#### Xem lịch sử sử dụng voucher
 
 ```http
 GET /voucher-usages?page=0&size=10
 ```
 
-## Business Rules
+## Quy tắc nghiệp vụ
 
-### Voucher rules
+### Voucher
 
-- `code` is required and unique.
-- `discountPercent` must be between `1` and `100`.
-- `quantity` must be greater than or equal to `0`.
-- `expiredDate` must be after the current date.
-- `status` must be `ACTIVE` or `INACTIVE`.
-- A voucher with usage history cannot be deleted.
+- `code` bắt buộc nhập và không được trùng.
+- `discountPercent` phải nằm trong khoảng từ `1` đến `100`.
+- `quantity` phải lớn hơn hoặc bằng `0`.
+- `expiredDate` phải lớn hơn ngày hiện tại.
+- `status` chỉ nhận `ACTIVE` hoặc `INACTIVE`.
+- Không cho xóa voucher đã có lịch sử sử dụng.
 
-### User rules
+### User
 
-- `fullName` is required.
-- `email` is required, valid, and unique.
-- `phone` is optional.
+- `fullName` bắt buộc nhập.
+- `email` bắt buộc nhập, đúng format và không được trùng.
+- `phone` có thể để trống.
 
-### Usage rules
+### Sử dụng voucher
 
-- User and voucher must exist.
-- Expired vouchers cannot be used.
-- Inactive vouchers cannot be used.
-- Vouchers with quantity `0` cannot be used.
-- Voucher usage is transactional and locks the voucher row before decrementing quantity.
+- User phải tồn tại.
+- Voucher phải tồn tại.
+- Không cho sử dụng voucher đã hết hạn.
+- Không cho sử dụng voucher đang `INACTIVE`.
+- Không cho sử dụng voucher có `quantity = 0`.
+- Khi sử dụng thành công, hệ thống giảm `quantity` của voucher đi `1` và lưu lịch sử vào `voucher_usages`.
+- Thao tác sử dụng voucher chạy trong transaction và lock row voucher trước khi giảm số lượng.
 
-## Status Codes
+## HTTP Status Code
 
-| Status | Meaning |
+| Status | Ý nghĩa |
 | --- | --- |
-| `200 OK` | Read, update, search, or use voucher succeeded |
-| `201 Created` | User or voucher created |
-| `204 No Content` | Voucher deleted |
-| `404 Not Found` | User or voucher does not exist |
-| `409 Conflict` | Duplicate data, unusable voucher, or blocked delete |
-| `422 Unprocessable Entity` | Request validation failed |
-| `500 Internal Server Error` | Unexpected server error |
+| `200 OK` | Lấy dữ liệu, cập nhật, tìm kiếm hoặc sử dụng voucher thành công |
+| `201 Created` | Tạo user hoặc voucher thành công |
+| `204 No Content` | Xóa voucher thành công |
+| `404 Not Found` | Không tìm thấy user hoặc voucher |
+| `409 Conflict` | Dữ liệu bị trùng, voucher không hợp lệ để sử dụng, hoặc không thể xóa |
+| `422 Unprocessable Entity` | Request không hợp lệ |
+| `500 Internal Server Error` | Lỗi server ngoài dự kiến |
 
-## Sample Data
+## Dữ liệu mẫu
 
-Flyway inserts these records during the second migration:
+Flyway tự thêm dữ liệu mẫu ở migration thứ hai:
 
-| Type | Values |
+| Loại | Giá trị |
 | --- | --- |
 | Users | `Nguyen Van A <a@gmail.com>`, `Tran Thi B <b@gmail.com>` |
 | Vouchers | `SALE10`, `SALE50` |
 
-Sample vouchers expire 90 days after the migration runs, so they remain usable in a fresh local setup.
+Voucher mẫu có ngày hết hạn sau 90 ngày tính từ thời điểm chạy migration, nên vẫn dùng được khi setup project mới.
 
-## Development Notes
+## Ghi chú phát triển
 
-- Controllers handle HTTP boundaries only.
-- DTOs define request validation and response shape.
-- Services own business rules and transaction boundaries.
-- Repositories keep data access focused and minimal.
-- Flyway is the source of truth for database schema changes.
+- Controller chỉ xử lý HTTP request và response.
+- DTO định nghĩa dữ liệu đầu vào, đầu ra và validate request.
+- Service chịu trách nhiệm xử lý nghiệp vụ và transaction.
+- Repository chỉ tập trung vào truy vấn dữ liệu.
+- Flyway là nguồn quản lý thay đổi schema database.
