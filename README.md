@@ -445,17 +445,6 @@ GET http://localhost:8080/voucher-usages?page=0&size=10
 | `422 Unprocessable Entity` | Request không hợp lệ |
 | `500 Internal Server Error` | Lỗi server ngoài dự kiến |
 
-## Dữ liệu mẫu
-
-Flyway tự thêm dữ liệu mẫu ở migration thứ hai:
-
-| Loại | Giá trị |
-| --- | --- |
-| Users | `Nguyen Van A <a@gmail.com>`, `Tran Thi B <b@gmail.com>` |
-| Vouchers | `SALE10`, `SALE50` |
-
-Voucher mẫu có ngày hết hạn sau 90 ngày tính từ thời điểm chạy migration, nên vẫn dùng được khi setup project mới.
-
 ## Ghi chú phát triển
 
 - Controller chỉ xử lý HTTP request và response.
