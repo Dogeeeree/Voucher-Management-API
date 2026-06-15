@@ -259,7 +259,8 @@ mvn spring-boot:run
 GET http://localhost:8080/vouchers?page=0&size=10
 ```
 Ảnh Demo:
-img/1.png
+
+![Demo lấy danh sách voucher](img/1.png)
 
 ### 2. Tạo voucher mới
 
@@ -279,14 +280,16 @@ Content-Type: application/json
 ```
 
 Ảnh Demo:
-img/2.png
+
+![Demo tạo voucher mới](img/2.png)
 
 ### 3. Validate voucher trùng code
 
 Gửi lại request tạo voucher `SALE20`.
 
 Ảnh Demo:
-img/3.png
+
+![Demo validate voucher trùng code](img/3.png)
 
 ### 4. Validate discount không hợp lệ
 
@@ -306,7 +309,8 @@ Content-Type: application/json
 ```
 
 Ảnh Demo:
-img/4.png
+
+![Demo validate discount không hợp lệ](img/4.png)
 
 ### 5. Tìm kiếm voucher theo code
 
@@ -314,7 +318,8 @@ img/4.png
 GET http://localhost:8080/vouchers/search?code=SALE&page=0&size=10
 ```
 Ảnh Demo:
-img/5.png
+
+![Demo tìm kiếm voucher theo code](img/5.png)
 
 ### 6. Cập nhật voucher
 
@@ -334,7 +339,8 @@ Content-Type: application/json
 ```
 
 Ảnh Demo:
-img/6.png
+
+![Demo cập nhật voucher](img/6.png)
 
 ### 7. Lấy danh sách user
 
@@ -342,7 +348,8 @@ img/6.png
 GET http://localhost:8080/users?page=0&size=10
 ```
 Ảnh Demo:
-img/7.png
+
+![Demo lấy danh sách user](img/7.png)
 
 ### 8. Tạo user mới
 
@@ -360,14 +367,16 @@ Content-Type: application/json
 ```
 
 Ảnh Demo:
-img/8.png
+
+![Demo tạo user mới](img/8.png)
 
 ### 9. Validate email trùng
 
 Gửi lại request tạo user với email `c@gmail.com`.
 
 Ảnh Demo:
-img/9.png
+
+![Demo validate email trùng](img/9.png)
 
 ### 10. User sử dụng voucher
 
@@ -384,7 +393,8 @@ Content-Type: application/json
 ```
 
 Ảnh Demo:
-img/10.png
+
+![Demo user sử dụng voucher](img/10.png)
 
 ### 11. Xem lịch sử sử dụng voucher
 
@@ -393,7 +403,8 @@ GET http://localhost:8080/voucher-usages?page=0&size=10
 ```
 
 Ảnh Demo:
-img/11.png
+
+![Demo xem lịch sử sử dụng voucher](img/11.png)
 
 ## Quy tắc nghiệp vụ
 
